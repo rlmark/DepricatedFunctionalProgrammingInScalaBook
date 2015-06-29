@@ -101,15 +101,22 @@ object Main {
 
     // Exercise 3.14
     // Implement append using foldLeft or foldRight
-    println("HI THIS IS WHERE YOU ARE")
     println(append(List(1,2,3), List(10,11,12)))
     println(append2(List(1,2,3), List(10,11,12)))
     println(append3(List(1,2,3), List(10,11,12)))
     println(append4(List(1,2,3), List(10,11,12)))
 
+    // Exercise 3.15
+    println(concatenateLists(List(List(100,101,102), List(201,202,203), List(301,302,303))))
 
+    // Exercise 3.16
+    println(add1(List(5,6,7,8)))
 
+    // Exercise 3.17
+    println(doubleToString(List(0.0, 2.0, 4.0523423423, 6.0, 8.0)))
+    // how do I check if these are indeed stringified???
 
+    
   }
 
 }

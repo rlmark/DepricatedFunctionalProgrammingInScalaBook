@@ -152,15 +152,31 @@ object List {
     // maybe make the seed of list 1 the result of a foldRight on list 2...???
     val seedIsL2 = foldRight(list2, Nil: List[A])((x,y)=> Cons(x,y))
     foldRight(list1, seedIsL2)((a,b)=> Cons(a,b))
-    // YASSSS
+    // YASSSS!!!
   }
 
-  //  def foldRight[A, B](list: List[A], seed: B)(f: (A, B) => B): B = {
-  //    list match {
-  //      case (Nil) => seed
-  //      case (Cons(head, tail)) => f(head, foldRight(tail, seed)(f))
-  //    }
-  //  }
+  // Exercise 3.15
+  // Concatenate a list of lists into a single list
+  def concatenateLists[A](listOfLists: List[List[A]]):List[A] = listOfLists match {
+    case Nil => Nil
+    case (Cons(miniList, tail)) => append(foldRight(miniList, Nil: List[A])((a,b)=>Cons(a,b)), concatenateLists(tail))
+  }
+
+  // Exercise 3.16
+  // Write a function that transforms a list of integers by adding 1 to each element.
+  def add1(list: List[Int]): List[Int] = list match {
+    case Nil => Nil
+    case Cons(head: Int, tail: List[Int]) => Cons(head + 1, add1(tail))
+  }
+
+  // Exercise 3.17
+  // Write a function that turns each value in a List[Double] into a String.
+
+  def doubleToString(list: List[Double]): List[String] = list match {
+    case Nil => Nil
+    case Cons(head, tail) => Cons(head.toString, doubleToString(tail))
+  }
+
 
 }
 
