@@ -116,7 +116,7 @@ object Main {
     println(doubleToString(List(0.0, 2.0, 4.0523423423, 6.0, 8.0)))
     // how do I check if these are indeed stringified???
 
-    
+
   }
 
 }
