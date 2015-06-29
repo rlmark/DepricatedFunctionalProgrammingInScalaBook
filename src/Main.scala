@@ -104,6 +104,9 @@ object Main {
     println("HI THIS IS WHERE YOU ARE")
     println(append(List(1,2,3), List(10,11,12)))
     println(append2(List(1,2,3), List(10,11,12)))
+    println(append3(List(1,2,3), List(10,11,12)))
+    println(append4(List(1,2,3), List(10,11,12)))
+
 
 
 

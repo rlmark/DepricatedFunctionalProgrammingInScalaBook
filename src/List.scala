@@ -92,7 +92,7 @@ object List {
 
   // Exercise 3.10
   // For stack overflow, see...
-  // length(List(1 to 10000000)) DON'T RUN THIS (again.)
+  // length(List(1 to 10000000)) DON'T RUN THIS
 
   @tailrec
   def foldLeft[A,B](as: List[A], seed: B)(f: (B, A) => B): B = {
@@ -101,13 +101,6 @@ object List {
       case (Cons(head, tail)) => foldLeft(tail, f(seed, head))(f) // Think about this.
     }
   }
-
-//  def foldRight[A, B](list: List[A], seed: B)(f: (A, B) => B): B = {
-//    list match {
-//      case (Nil) => seed
-//      case (Cons(head, tail)) => f(head, foldRight(tail, seed)(f))
-//    }
-//  }
 
   // Exercise 3.11
   def sumLeft(list: List[Int]):Int = {
@@ -145,8 +138,21 @@ object List {
   }
 
   def append2[A](list1: List[A], list2: List[A]): List[A] = list1 match {
+    case Cons(head, tail) => Cons(head, tail)
+    case(Cons(head,Nil)) => Cons(head, foldRight(list2, Nil: List[A])((a,b) => Cons(a,b)))
+  }
+
+  // Close but no cigar
+  def append3[A](list1: List[A], list2: List[A]): List[A] = list1 match {
     case Nil => list2
-    case(Cons(head,tail)) => Cons(head, foldRight(list2, Nil: List[A])((a,b) => b))
+    case(Cons(head,tail)) => Cons(head, foldRight(list2, Nil: List[A])((a,b) => Cons(a,b)))
+  }
+
+  def append4[A](list1: List[A], list2: List[A]): List[A] = {
+    // maybe make the seed of list 1 the result of a foldRight on list 2...???
+    val seedIsL2 = foldRight(list2, Nil: List[A])((x,y)=> Cons(x,y))
+    foldRight(list1, seedIsL2)((a,b)=> Cons(a,b))
+    // YASSSS
   }
 
   //  def foldRight[A, B](list: List[A], seed: B)(f: (A, B) => B): B = {
