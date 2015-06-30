@@ -2,6 +2,7 @@ import scala.annotation.tailrec
 import List._
 
 object Main {
+
   def main(args: Array[String]): Unit = {
 
     //Exercise 2.1
@@ -105,6 +106,7 @@ object Main {
     println(append2(List(1,2,3), List(10,11,12)))
     println(append3(List(1,2,3), List(10,11,12)))
     println(append4(List(1,2,3), List(10,11,12)))
+    println(append5(List(1,2,3), List(10,11,12)))
 
     // Exercise 3.15
     println(concatenateLists(List(List(100,101,102), List(201,202,203), List(301,302,303))))
@@ -114,9 +116,25 @@ object Main {
 
     // Exercise 3.17
     println(doubleToString(List(0.0, 2.0, 4.0523423423, 6.0, 8.0)))
+    println(doubleToStringFold(List(0.0, 2.0, 4.0523423423, 6.0, 8.0)))
+
     // how do I check if these are indeed stringified???
 
+    // Exercise 3.18
+    // map function
+    def a(i: Int): Int = {
+      i + 5
+    }
+    println(map(List(10,11,12,13))(a))
 
+    // Exercise 3.19
+    def even(a: Int):Boolean = {
+      if (a % 2 == 0) true
+      else false
+    }
+    println("HIIIIIII")
+
+    println(filter(List(1,2,3,4,5,6,7,8))(x => even(x)))
   }
 
 }

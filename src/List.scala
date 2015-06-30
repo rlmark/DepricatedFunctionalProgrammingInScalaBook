@@ -19,7 +19,9 @@ object List {
   def foldRight[A, B](list: List[A], seed: B)(f: (A, B) => B): B = {
     list match {
       case (Nil) => seed
-      case (Cons(head, tail)) => f(head, foldRight(tail, seed)(f)) /// HOW????
+      case (Cons(head, tail)) =>
+        val foldRightOnTail: B = foldRight(tail, seed)(f)
+        f(head, foldRightOnTail) /// HOW????
     }
   }
 
@@ -155,6 +157,10 @@ object List {
     // YASSSS!!!
   }
 
+  def append5[A](list1: List[A], list2: List[A]): List[A] = {
+    foldRight(list1, list2)((a,b) => Cons(a,b))
+  }
+
   // Exercise 3.15
   // Concatenate a list of lists into a single list
   def concatenateLists[A](listOfLists: List[List[A]]):List[A] = listOfLists match {
@@ -169,6 +175,14 @@ object List {
     case Cons(head: Int, tail: List[Int]) => Cons(head + 1, add1(tail))
   }
 
+  def add1Fold(list: List[Int]): List[Int] = {
+    foldRight(list, Nil: List[Int]){
+      case ( i: Int, outputList) =>
+        val v = i + 1
+        Cons(v, outputList)
+    }
+  }
+
   // Exercise 3.17
   // Write a function that turns each value in a List[Double] into a String.
 
@@ -176,6 +190,40 @@ object List {
     case Nil => Nil
     case Cons(head, tail) => Cons(head.toString, doubleToString(tail))
   }
+
+  def doubleToStringFold(list: List[Double]): List[String] = {
+    foldRight(list, Nil: List[String]){
+      case(d: Double, outputList) =>
+        val string: String = d.toString
+        Cons(string, outputList)
+    }
+  }
+
+  // Exercise 3.18
+  // Write a function that generalizes modifying each element in a list while maintaining the structure of the list.
+  def map[A, B](list : List[A])(f: A => B): List[B] = list match {
+    case Nil => Nil
+    case Cons(head, tail) => Cons(f(head), map(tail)(f))
+  }
+  // Note, this implementation is not tail recursive
+
+  def mapWithFold[A,B](list: List[A])(f: A => B): List[B] = {
+    foldRight(list, Nil: List[B]){
+      case(item: A, outputList: List[B]) =>
+        val mutated: B = f(item)
+        Cons(mutated, outputList)
+    }
+  }
+
+  // Exercise 3.19
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = as match {
+    case Nil => Nil
+    case Cons(head, tail) =>
+      if (f(head) == true) Cons(head,filter(tail)(f))
+      else foldRight(tail, Nil: List[A])((a, list) => filter(tail)(f))
+  }
+
+
 
 
 }
