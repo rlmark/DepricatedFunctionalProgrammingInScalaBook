@@ -216,6 +216,7 @@ object List {
   }
 
   // Exercise 3.19
+  // Write a filter function which takes elements out of a list if they do not fulfill a predicate
   def filter[A](as: List[A])(f: A => Boolean): List[A] = as match {
     case Nil => Nil
     case Cons(head, tail) =>
@@ -223,8 +224,12 @@ object List {
       else foldRight(tail, Nil: List[A])((a, list) => filter(tail)(f))
   }
 
+  // Exercise 3.20
+  // flatMap  works like map except that the function given will return a list instead of a single result,
+  // and that list should be inserted into the final resulting list.
 
-
-
+//  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = {
+//
+//  }
 }
 
